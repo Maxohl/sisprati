@@ -1,8 +1,8 @@
 {
   "name": "node-authentication",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./server"
+    "start": "node ./app"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.5.0",
