@@ -1,0 +1,103 @@
+<% layout('layouts/boilerplate') %> 
+
+   <div class="row">
+       <div class="col-6 offset-3">
+        <% var i=1 %>
+        <% naviosData.forEach(function(result) { %>
+        <form action="/navios/<%= result.ID %>?_method=PUT " method="POST" novalidate class="validated-form">
+           
+            <div class="mb-3">
+                <label class="form-label" for="situation">Situação:</label>
+                <select class="form-select"  name="navio[situation]" id="Situation">
+                    <option value="ATRACADO" name="navio[situation]">Atracado</option>
+                    <option value="ESPERADO" name="navio[situation]">Esperado</option>
+                    <option value="FUNDEADO" name="navio[situation]">Fundeado</option>
+                </select>
+            </div>
+        <div class="mb-3">
+    
+            <label class="form-label" for="Navio">Navio:</label>
+            <input class="form-control" type="text" id="Navio" name="navio[Navio]" value= "<%= result.Navio %>" required>
+      
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="Bandeira">Bandeira:</label>
+            <input class="form-control" type="text" id="Bandeira" name="navio[Bandeira]" value=<%= result.Bandeira %> required>
+            
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="Viagem">N. Viagem:</label>
+            <input class="form-control" type="number" id="Viagem" name="navio[Viagem]" value=<%= result.Viagem %> required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="Armador">Armador:</label>
+            <input class="form-control" type="text" name="navio[Armador]" id="Armador" value="<%= result.armador %> ">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="IMO">IMO:</label>
+            <input class="form-control" type="text" id="IMO" name="navio[IMO]" value="<%= result.IMO %> ">
+        </div>    
+        <div class="mb-3">
+            <label class="form-label" for="GRT">GRT:</label>
+            <input class="form-control" type="number" id="GRT" name="navio[GRT]" value=<%= result.GRT %> >
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="DWT">DWT:</label>
+            <input class="form-control" type="number" id="DWT" name="navio[DWT]" value=<%= result.DWT %> >
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="LOA">LOA:</label>
+            <input class="form-control" type="number" id="LOA" name="navio[LOA]" value=<%= result.LOA %> >
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="Carga">Carga:</label>
+            <input class="form-control" type="text" id="Carga" name="navio[Carga]" value="<%= result.Carga %> " required>
+        </div>
+            <div class="mb-3">
+            <label class="form-label" for="Berco">Berço:</label>
+            <input class="form-control" type="number" min="1" max="3" id="Berco" name="navio[Berco]" value=<%= result.berco %> required >
+        </div>
+        <div class="mb-3">              
+            <label class="form-label" for="ETA">ETA:</label>
+            <input class="form-control mb-1" type="date" id="ETA" name="navio[ETA]" maxlength="10" value= "<%= dateEta %>"  required>
+            <input class="form-control mb-1" type="time" id="ETA_time" name="navio[ETA_time]" value=<%= result.ETA_Time %> required >
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="ETB">ETB:</label>
+            <input class="form-control mb-1" type="date" id="ETB" name="navio[ETB]" maxlength="10" value= "<%= dateEtb %>" required>
+            <input class="form-control mb-1" type="time" id="ETB_time" name="navio[ETB_time]" value= <%= result.ETB_Time %> required >
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="ETS">ETS:</label>
+            <input class="form-control mb-1" type="date" id="ETS" name="navio[ETS]" maxlength="10" value= "<%= dateEts %>" required>
+            <input class="form-control mb-1" type="time" id="ETS_time" name="navio[ETS_time]" value= <%= result.ETS_Time %>  required>
+        </div>
+        <div class="mb-3">
+            <h3>Calado de Entrada</h3>
+            <div class="mb-3">
+                <label class="form-label" for="C_proa">Proa:</label>
+                <input class="form-control" type="number" id="C_proa" name="navio[C_proa]" value= <%= result.C_proa %>  required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="C_popa">Popa:</label>
+                <input class="form-control" type="number" id="C_popa" name="navio[C_popa]" value= <%= result.C_popa %> required >
+            </div class="mb-3">
+        </div>
+        <div class="mb-3">
+            <h3>Calado de Saida</h3>
+            <div class="mb-3">
+                <label class="form-label" for="CS_proa">Proa:</label>
+                <input class="form-control" type="number" id="CS_proa" name="navio[CS_proa]" value= <%= result.CS_proa %> >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="CS_popa">Popa:</label>
+                <input class="form-control" type="number" id="CS_popa" name="navio[CS_popa]" value= <%= result.CS_popa %> >
+            </div>
+        </div>
+        <button class="btn btn-info mb-3 text-white">Atualizar Navio</button>
+        <% i++ }) %> 
+        </form>
+        <a href="/navios">Voltar para todos os navios</a>           
+       </div>
+   </div>

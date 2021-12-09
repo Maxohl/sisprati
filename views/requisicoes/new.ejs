@@ -1,0 +1,55 @@
+<% layout('layouts/boilerplate') %> 
+<% if (requiData.length != 0) { %>
+   <% var i=1 %>
+   <% requiData.forEach(function(result) { %>
+   
+   <div class="row">
+      <h2 class="mb-3 text-center"><%= result.Navio %></h2>
+      <div class="col-6 offset-3">
+         <form action="/requisicoes" method="POST" novalidate class="validated-form" id="formRequi">
+            <div class="mb-3">
+               <label class="form-label" for="Requi_servico">Serviço:</label>
+               <select class="form-select" name="requi[Requi_servico]" id="Servico">
+                  <option value="ATRACACAO" name="requi[Requi_servico]">ATRACAÇÃO</option>
+                  <option value="DESATRACACAO" name="requi[Requi_servico]">DESATRACAÇÃO</option>
+                  <option value="DESATRACACAOF" name="requi[Requi_servico]">DESATRACAÇÃO FUNDEIO</option>
+                  <option value="PUXADA" name="requi[Requi_servico]">PUXADA</option>
+                  <option value="REATRACACAO" name="requi[Requi_servico]">REATRACAÇÃO</option>
+                  <option value="TROCA" name="requi[Requi_servico]">TROCA DE BERÇO</option>
+               </select>
+            </div>
+            <div class="mb-3">
+               <label class="form-label" for="Requi_data">Data/POB:</label>
+               <input class="form-control mb-1" type="date" id="Requi_data" name="requi[Data_requi]" required>
+               <input class="form-control mb-1" type="time" id="Hora_requi" name="requi[Hora_requi]" required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="berco">Berço:</label>
+              <input class="form-control" type="number" id="berco" name="requi[berco_requi]" required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="posBerco">Posição no Berço:</label>
+              <input class="form-control mb-1" type="text" id="posBerco"  name="requi[posicao_requi]" value=" ">
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="obsRequi">Obs/Contatos:</label>
+              <textarea class="form-control" name="requi[Obs_requi]" id="obsRequi" rows="3" required>N/A</textarea>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="Faturamento">Faturamento:</label>
+            <textarea class="form-control" type="text" name="requi[Fatu_requi]" id="Faturamento" rows="3" value="N/A" required>N/A</textarea>
+         </div>
+         <div class="mt-1 mb-3">
+            <button class="btn btn-primary mb-3">Salvar</button>
+         </div>
+         <div>
+            <input type="hidden" name="requi[ID_Navio]" value="<%= result.ID %>">
+            <input type="hidden" name="requi[viagem]" value="<%= result.Viagem  %> ">
+         </div>
+         </form>
+      </div>
+      
+   </div>
+
+
+   <% i++ }) } %> 

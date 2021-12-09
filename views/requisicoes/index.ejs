@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %> 
+
+    <form action="/requisicoes/new" method="POST">
+        
+        <div class="row">
+            <div class="col-mg-6">
+            <h2 class="mb-4">Nova Requisição:</h2>
+            <label for="nomeNavio">Navio:</label>
+            <select name="requi[nomeNavio]" id="Navio">
+                <% if (naviosData.length != 0) { %>
+                    <% var i=1 %>
+                    <% naviosData.forEach(function(result) { %>
+                        <option value= <%= result.ID %> name="requi[navioID]"><%= result.Navio %> </option>
+                        <% i++ }) } %>                                       
+            </select>
+            <button class="btn btn-info text-white ms-4">Continuar</button>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h2>Ultimas Requisições:</h2>
+            <% if(requiData.length !=0) { %>
+                <% var i=1 %>
+                <% requiData.forEach(function(result) { %>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-mg-8">
+                        <div class="card-body">
+                            <% naviosData.forEach(function(rows){ %>
+                                <% if(rows.ID == result.ID_Navio){ %>
+                                    <h5 class="card-title"><a href="/requisicoes/<%= result.ID %>"> <%= rows.Navio %></a></h5>
+                                    <input type="hidden" name="Navio[Nome]" value="<%= rows.Navio %>">
+                                    <% } %>  
+                            <% }); %>                            
+                            <% function converte(date){ %> 
+                                <% date = new Date(date) %>
+                                <% return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4) %>
+                                <% } %>   
+                            <p class="card-text"><b>Data:</b> <%= converte(result.Data_requi) %></p>
+                            <p class="card-text"><b>Hora:</b> <%= result.Hora_requi %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% i++  }); %> 
+            <% }else{ %>
+                <%} %> 
+        </div>   
+</form>    

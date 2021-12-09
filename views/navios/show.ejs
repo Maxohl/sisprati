@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %> 
+    <% var i=1 %> 
+    <% naviosData.forEach(function(result) { %> 
+ 
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-3">        
+            <div class="card-body">
+                <h5 class="card-title"><%= result.Navio %></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Bandeira: <%= result.Bandeira %></li>
+                <li class="list-group-item">Viagem: <%= result.Viagem %></li>
+                <li class="list-group-item">Armador: <%= result.armador %></li>
+                <li class="list-group-item">IMO: <%= result.IMO %></li>
+                <li class="list-group-item">GRT: <%= result.GRT %></li>
+                <li class="list-group-item">DWT: <%= result.DWT %></li>
+                <li class="list-group-item">LOA: <%= result.LOA %></li>
+                <li class="list-group-item">Carga: <%= result.Carga %></li>
+                <li class="list-group-item">Berço: <%= result.berco %></li>
+                <li class="list-group-item">Armador: <%= result.armador %></li>
+                <li class="list-group-item">ETA: <%= dateEta %> <%= result.ETA_Time %> </li>
+                <li class="list-group-item">ETB: <%= dateEtb %> <%= result.ETB_Time %> </li>
+                <li class="list-group-item">ETS: <%= dateEts %> <%= result.ETS_Time %> </li>
+            </ul>
+            <div class="card-body">
+                <h5 class="card-title">Calado de Entrada</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+             <li class="list-group-item">Proa: <%= result.C_proa %></li>
+             <li class="list-group-item">Popa: <%= result.C_popa %></li>
+            </ul>
+            <div class="card-body">
+                <h5 class="card-title">Calado de Saída</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Proa: <%= result.CS_proa %></li>
+                <li class="list-group-item">Popa: <%= result.CS_popa %></li>   
+            </ul>
+            <div class="card-body">
+                <a href="/navios/<%= result.ID %>/edit" class="card-link btn btn-info text-white">Editar Navio</a>
+                    <form class="d-inline" action="/navios/<%= result.ID %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>
+            </div>
+            <div class="card-footer text-muted">
+                <a href="/navios">Todos os navios</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+      <% i++ })  %> 
+
+
+

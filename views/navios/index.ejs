@@ -1,0 +1,46 @@
+<% layout('layouts/boilerplate') %> 
+
+    <h1>Todos os navios</h1>
+    <div>
+        <a href="/navios/new">Adicionar Navio</a>
+    </div>
+    <div class="table-data">
+        <h2>Lista de navios:</h2>
+        <!-- <table border="1">
+            <tr>
+                <th>Navio</th>
+                <th>Viagem</th>
+                <th>Bandeira</th>
+            </tr> -->
+            <% if (naviosData.length != 0) { %>
+                <% var i=1 %>
+                <% naviosData.forEach(function(result) { %>
+                    <div class="card mb-3">
+                        <div class="row">
+                            <div class="col-mg-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="/navios/<%= result.ID %> "><%= result.Navio %></a></h5>
+                                    <p class="card-text"><b>Viagem:</b> <%= result.Viagem %></p>
+                                    <p class="card-text"><b>Bandeira:</b> <%= result.Bandeira %></p>
+                                    <% function converte(date){ %> 
+                                        <% date = new Date(date) %>
+                                        <% return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4) %>
+                                        <% } %>   
+                                    <p class="card-text"><b>ETA:</b> <%= converte(result.ETA_Data) %> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <tr>
+                        <td><a href="/navios/<%= result.ID %> "><%= result.Navio %></a></td>
+                        <td><%= result.Viagem %></td>
+                        <td><%= result.Bandeira %> </td>
+                    </tr> -->
+                    <% i++ }) %> 
+                    <!-- <% }else{ %>
+                        <tr>
+                            <td colspan="7">No Data found</td>
+                        </tr>  
+                        <%} %>  -->
+        </table>
+    </div>

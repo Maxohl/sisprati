@@ -1,0 +1,64 @@
+<% layout('layouts/boilerplate') %> 
+<% if (condiData.length != 0) { %>
+   <% var i=1 %>
+   <% condiData.forEach(function(result) { %>
+   
+   <div class="row">
+      <h2 class="mb-3 text-center"><%= result.Navio %></h2>
+      <div class="col-6 offset-3">
+         <form action="/condicionada" method="POST" novalidate class="validated-form" id="formCondi">
+            <div class="mb-3">
+               <label class="form-label" for="Servico">Serviço:</label>
+               <select class="form-select" name="condi[Servico]" id="Servico">
+                  <option value="ATRACACAO" name="condi[Servico]">ATRACAÇÃO</option>
+                  <option value="DESATRACACAO" name="condi[Servico]">DESATRACAÇÃO</option>
+                  <option value="DESATRACACAOF" name="condi[Servico]">DESATRACAÇÃO FUNDEIO</option>
+                  <option value="PUXADA" name="condi[Servico]">PUXADA</option>
+                  <option value="REATRACACAO" name="condi[Servico]">REATRACAÇÃO</option>
+                  <option value="TROCA" name="condi[Servico]">TROCA DE BERÇO</option>
+               </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Condi_navios">Navio Condição:</label>
+                <select class="form-select" name="condi[ID_NavioSub]" id="ID_NavioSub">
+                    <% if (navioData.length != 0) { %>
+                        <% var i=1 %>
+                        <% navioData.forEach(function(result) { %>
+                            <option value= <%= result.ID %> name="condi[ID_NavioSub]"><%= result.Navio %> </option>
+                            <% i++ }) } %>  
+                </select>
+            </div>
+            <div class="mb-3">
+               <label class="form-label" for="Condi_data">Data/POB:</label>
+               <input class="form-control mb-1" type="date" id="Condi_data" name="condi[Data]" required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="berco">Berço:</label>
+              <input class="form-control" type="number" id="berco" name="condi[Berco]" required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="posBerco">Posição no Berço:</label>
+              <input class="form-control mb-1" type="text" id="posBerco"  name="condi[Posicao_Berco]" value=" ">
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="obsRequi">Obs/Contatos:</label>
+              <textarea class="form-control" name="condi[OBS]" id="obsRequi" rows="3" required>N/A</textarea>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="Faturamento">Faturamento:</label>
+            <textarea class="form-control" type="text" name="condi[Fatu]" id="Faturamento" rows="3" value="N/A" required>N/A</textarea>
+         </div>
+         <div class="mt-1 mb-3">
+            <button class="btn btn-primary mb-3">Salvar</button>
+         </div>
+         <div>
+            <input type="hidden" name="condi[ID_NavioMain]" value="<%= result.ID %>">
+            <input type="hidden" name="condi[Viagem]" value="<%= result.Viagem  %> ">
+         </div>
+         </form>
+      </div>
+      
+   </div>
+
+
+   <% i++ }) } %> 

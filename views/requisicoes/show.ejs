@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %> 
+    <% var i=1 %> 
+    <% requiData.forEach(function(result) { %> 
+ 
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-3">        
+            <div class="card-body">
+                <h5 class="card-title"><%= Navio %></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Serviço:</b> <%= result.Requi_servico %></li>
+                <li class="list-group-item"><b>Data:</b> <%= converte(result.Data_requi) %> <%= result.Hora_requi %> </li>
+                <li class="list-group-item"><b>Viagem:</b><%= result.viagem %></li>                
+                <li class="list-group-item"><b>Berço:</b> <%= result.berco_requi %></li>
+                <li class="list-group-item"><b>Posição:</b> <%= result.posicao_requi %></li>
+                <li class="list-group-item"><b>Obs:</b> <%= result.Obs_requi %></li>
+                <li class="list-group-item"><b>Faturamento:</b> <%= result.Fatu_requi %></li>
+            </ul>
+            <div class="card-body">
+                <a href="/requisicoes/edit/<%= result.ID %>" class="card-link btn btn-info text-white">Editar Requisição</a>
+                    <form class="d-inline" action="/requisicoes/<%= result.ID %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Cancelar Requisição</button>
+                    </form>
+            </div>
+            <div class="card-footer text-muted">
+                <a href="/requisicoes">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% function converte(date){ %> 
+    <% date = new Date(date) %>
+    <% return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4) %>
+    <% } %>   
+
+      <% i++ })  %> 

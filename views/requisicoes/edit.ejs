@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %> 
+<% if (requiData.length != 0) { %>
+   <% var i=1 %>
+   <% requiData.forEach(function(result) { %>
+   
+   <div class="row">
+      <h2 class="mb-3 text-center"><%= Ship[0].Navio %></h2>
+      <div class="col-6 offset-3">
+         <input type="hidden" name="tipoServico" id="tipoServico" value="<%= requiData[0].Requi_servico %>">
+         <form action="/requisicoes/<%= result.ID %>?_method=PUT " method="POST" novalidate class="validated-form" id="formRequi">
+            <div class="mb-3">
+               
+               <label class="form-label" for="Requi_servico">Serviço:</label>
+               <select class="form-select" name="requi[Requi_servico]" id="Servico">
+                  <option value="ATRACACAO" name="requi[Requi_servico]" se>ATRACAÇÃO</option>
+                  <option value="DESATRACACAO" name="requi[Requi_servico]">DESATRACAÇÃO</option>
+                  <option value="DESATRACACAOF" name="requi[Requi_servico]">DESATRACAÇÃO FUNDEIO</option>
+                  <option value="PUXADA" name="requi[Requi_servico]">PUXADA</option>
+                  <option value="REATRACACAO" name="requi[Requi_servico]">REATRACAÇÃO</option>
+                  <option value="TROCA" name="requi[Requi_servico]">TROCA DE BERÇO</option>
+               </select>                    
+               <script type="text/javascript">
+                  var teste = document.querySelector('#Servico')
+                  var servico = document.querySelector('#tipoServico')
+                  
+                  if(servico.value == 'ATRACACAO'){
+                  teste.selectedIndex = 0;
+                  }
+                  if(servico.value == 'DESATRACACAO'){
+                  teste.selectedIndex = 1;
+                  } 
+                  if(servico.value == 'DESATRACACAOF'){
+                  teste.selectedIndex = 2;
+                  }
+                  if(servico.value == 'PUXADA'){
+                  teste.selectedIndex = 3;
+                  }   
+                  if(servico.value == 'REATRACACAO'){
+                  teste.selectedIndex = 4;
+                  }
+                  if(servico.value == 'TROCA'){
+                  teste.selectedIndex = 5;
+                  }                                                   
+                  //  teste.selectedIndex = 2;
+               </script>               
+            </div>
+            <div class="mb-3">
+               <% function converte(date){ %> 
+                  <% date = new Date(date) %>
+                  <% return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2) %>
+                  <% } %>   
+               <label class="form-label" for="Requi_data">Data/POB:</label>
+               <input class="form-control mb-1" type="date" id="Requi_data" name="requi[Data_requi]" value=<%= converte(requiData[0].Data_requi) %> required>
+               <input class="form-control mb-1" type="time" id="Hora_requi" name="requi[Hora_requi]" value=<%= requiData[0].Hora_requi %>  required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="berco">Berço:</label>
+              <input class="form-control" type="number" id="berco" name="requi[berco_requi]" value=<%= requiData[0].berco_requi %>  required>
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="posBerco">Posição no Berço:</label>
+              <input class="form-control mb-1" type="text" id="posBerco"  name="requi[posicao_requi]" value=<%= requiData[0].posicao_requi %> >
+           </div>
+           <div class="mb-3">
+              <label class="form-label" for="obsRequi">Obs/Contatos:</label>
+              <textarea class="form-control" name="requi[Obs_requi]" id="obsRequi" rows="3" required><%= requiData[0].Obs_requi %> </textarea>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="Faturamento">Faturamento:</label>
+            <textarea class="form-control" type="text" name="requi[Fatu_requi]" id="Faturamento" rows="3" value="N/A" required><%= requiData[0].Fatu_requi %> </textarea>
+         </div>
+         <div class="mt-1 mb-3">
+            <button class="btn btn-primary mb-3">Salvar</button>
+         </div>
+   
+         <div>
+            <input type="hidden" name="requi[ID_Navio]" value="<%= result.ID_Navio %>">
+            <input type="hidden" name="requi[viagem]" value="<%= result.viagem  %> ">
+            <input type="hidden" name="requi[ID]" value="<%= result.ID %> ">            
+         </div>
+        
+         
+      </div>
+      
+   </div>
+
+
+   <% i++ }) } %> 
