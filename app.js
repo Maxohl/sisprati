@@ -25,6 +25,7 @@ const requiRoutes = require('./routes/requisicoes');
 const condiRoutes = require('./routes/condicionada');
 const ExpressError = require('./utils/ExpressError');
 const helmet = require('helmet');
+const con = require('./utils/connection');
 //for e-mail sending
 
 
@@ -32,7 +33,6 @@ const helmet = require('helmet');
 // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
-
 
 
 // set up our express application
@@ -89,6 +89,29 @@ app.use((err,req,res,next) => {
     if(!err.message) err.message = 'Something went wrong';
     res.status(statusCode).render('error',{ err })
 })
+
+
+function handleDisconnect(){
+    con;
+}
+
+con.connect(function(err){
+    if(err){
+        console.log('error when connecting to DB:',err);
+        setTimeout(handleDisconnect,2000);
+    }
+});
+
+con.on('error',function(err){
+    console.log('DB error',err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+        handleDisconnect();
+    }else {
+        throw err;
+    }
+})
+
+handleDisconnect();
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);

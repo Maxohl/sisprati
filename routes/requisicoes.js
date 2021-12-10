@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { requiSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
@@ -53,18 +53,6 @@ const mailCondi = {
     Faturamento: '',
     Obs : '',   
 }
-
-// //Connecta com o BD
-// const con = mysql.createConnection({
-//     host:"187.45.196.164",
-//     user:"movimentacoes",
-//     password:"Eurico123",
-//     database:"movimentacoes"
-//     host: "localhost",
-//     user: "root",
-//     password:"masterkey",
-//     database:"movimentacoes"
-// });
 
 let copia;
 let nameShip;
