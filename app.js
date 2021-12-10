@@ -25,7 +25,6 @@ const requiRoutes = require('./routes/requisicoes');
 const condiRoutes = require('./routes/condicionada');
 const ExpressError = require('./utils/ExpressError');
 const helmet = require('helmet');
-const pool = require('./utils/pool');
 //for e-mail sending
 
 
@@ -90,10 +89,6 @@ app.use((err,req,res,next) => {
     res.status(statusCode).render('error',{ err })
 })
 
-pool.query('SELECT 1 + 1 AS solution',function(error,results,fields){
-    if (error) throw error;
-    console.log('The solution is:',results[0].solution);
-});
 
 // launch ======================================================================
 app.listen(port);
