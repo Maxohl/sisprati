@@ -7,7 +7,8 @@ if (process.env.NODE_ENV !== "production"){
 // set up ======================================================================
 // get all the tools we need
 const express  = require('express');
-const session  = require('express-session');
+// const session  = require('express-session');
+const session = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override')
@@ -57,7 +58,7 @@ app.use(session({
 	saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true
+        secure: true
     }
  } )); // session secret
 app.use(passport.initialize());
