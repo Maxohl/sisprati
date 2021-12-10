@@ -25,7 +25,7 @@ const requiRoutes = require('./routes/requisicoes');
 const condiRoutes = require('./routes/condicionada');
 const ExpressError = require('./utils/ExpressError');
 const helmet = require('helmet');
-const con = require('./utils/connection');
+const pool = require('./utils/pool');
 //for e-mail sending
 
 
@@ -90,28 +90,11 @@ app.use((err,req,res,next) => {
     res.status(statusCode).render('error',{ err })
 })
 
-
-function handleDisconnect(){
-    con;
-}
-
-con.connect(function(err){
-    if(err){
-        console.log('error when connecting to DB:',err);
-        setTimeout(handleDisconnect,2000);
-    }
+pool.query('SELECT 1 + 1 AS solution',function(error,results,fields){
+    if (error) throw error;
+    console.log('The solution is:',results[0].solution);
 });
 
-con.on('error',function(err){
-    console.log('DB error',err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-        handleDisconnect();
-    }else {
-        throw err;
-    }
-})
-
-handleDisconnect();
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);

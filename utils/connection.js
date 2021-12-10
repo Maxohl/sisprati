@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
  //Configurations for Database connection  
    const con = mysql.createConnection({
-    host: "187.45.196.164",
+    host: process.env.DB_HOST,
     user: "movimentacoes",
     password:process.env.DB_PASSWORD,
     database:"movimentacoes",
