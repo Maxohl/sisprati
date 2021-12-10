@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 // app/routes.js
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/connection');

@@ -1,9 +1,9 @@
 // config/database.js
 module.exports = {
     'connection': {
-        'host': 'localhost',
-        'user': 'root',
-        'password': 'masterkey'
+        'host': process.env.DB_HOST,
+        'user': 'movimentacoes',
+        'password': process.env.DB_PASSWORD
     },
 	'database': 'movimentacoes',
     'users_table': 'ususarios'

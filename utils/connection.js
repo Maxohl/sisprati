@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
  //Configurations for Database connection  
    const con = mysql.createConnection({
     host: "187.45.196.164",
