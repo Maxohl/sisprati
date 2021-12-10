@@ -51,7 +51,7 @@ function listaNavios(result,res){
 }
 
 function allRequi(req){
-    const searchQuery = `SELECT * FROM condicionado WHERE ID_agencia = ${req.user.ID_agencia} order by ID desc`;
+    const searchQuery = `SELECT * FROM Condicionado WHERE ID_agencia = ${req.user.ID_agencia} order by ID desc`;
     con.query(searchQuery,function(err,rows,fields){
         if(err) throw(err);
         //console.log(rows);
@@ -74,7 +74,7 @@ router.get('/', isLoggedIn,(req,res) => {
 router.post('/',validateCondi, isLoggedIn,catchAsync(async(req,res) => {
     const cookie = req.cookies.Agencia;
     const caminho = req.body.condi;
-    const condicionada = `INSERT INTO condicionado (ID_NavioMain,ID_NavioSub,Data,Viagem,Servico,Berco,Posicao_Berco,OBS,Fatu,ID_Agencia) VALUES ("${caminho.ID_NavioMain}","${caminho.ID_NavioSub}","${caminho.Data}", "${caminho.Viagem}","${caminho.Servico}","${caminho.Berco}", "${caminho.Posicao_Berco}", "${caminho.OBS}", "${caminho.Fatu}", "${req.user.ID_agencia}")`;
+    const condicionada = `INSERT INTO Condicionado (ID_NavioMain,ID_NavioSub,Data,Viagem,Servico,Berco,Posicao_Berco,OBS,Fatu,ID_Agencia) VALUES ("${caminho.ID_NavioMain}","${caminho.ID_NavioSub}","${caminho.Data}", "${caminho.Viagem}","${caminho.Servico}","${caminho.Berco}", "${caminho.Posicao_Berco}", "${caminho.OBS}", "${caminho.Fatu}", "${req.user.ID_agencia}")`;
     con.query(condicionada,function(err,result,fields){
         if(err) throw(err);
         console.log(result);
@@ -85,7 +85,7 @@ router.post('/',validateCondi, isLoggedIn,catchAsync(async(req,res) => {
 
 router.get('/edit/:id',isLoggedIn,(req,res) => {
     const cookie = req.cookies.ID;
-    const requisicao = 'SELECT * FROM condicionado WHERE ID ='+mysql.escape(req.params.id);
+    const requisicao = 'SELECT * FROM Condicionado WHERE ID ='+mysql.escape(req.params.id);
     con.query(requisicao,function(err,result,fields){
         if(err) throw(err);
         if(result[0].ID_Agencia == cookie){
@@ -101,7 +101,7 @@ router.get('/edit/:id',isLoggedIn,(req,res) => {
 
 router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
     const cookie = req.cookies.ID;
-    const requisicao = 'SELECT * FROM condicionado WHERE ID = '+mysql.escape(req.params.id);
+    const requisicao = 'SELECT * FROM Condicionado WHERE ID = '+mysql.escape(req.params.id);
     con.query(requisicao,function(err,result,fields){
         if(err) throw (err);
         if(result[0].ID_Agencia == cookie){
@@ -121,7 +121,7 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
    router.put('/:id', validateCondi,catchAsync(async(req,res, next) => {
     const caminho = req.body.condi;
     const dataCondi = converte(caminho.Data);
-    const sql = `UPDATE condicionado SET ID_NavioMain="${caminho.ID_NavioMain}", ID_NavioSub="${caminho.ID_NavioSub}", Data="${dataCondi}", Viagem="${caminho.Viagem}", Servico="${caminho.Servico}", Berco="${caminho.Berco}", Posicao_Berco="${caminho.Posicao_Berco}", OBS="${caminho.OBS}", Fatu="${caminho.Fatu}", ID_Agencia="${req.user.ID_agencia}" WHERE ID = ${caminho.ID}`;
+    const sql = `UPDATE Condicionado SET ID_NavioMain="${caminho.ID_NavioMain}", ID_NavioSub="${caminho.ID_NavioSub}", Data="${dataCondi}", Viagem="${caminho.Viagem}", Servico="${caminho.Servico}", Berco="${caminho.Berco}", Posicao_Berco="${caminho.Posicao_Berco}", OBS="${caminho.OBS}", Fatu="${caminho.Fatu}", ID_Agencia="${req.user.ID_agencia}" WHERE ID = ${caminho.ID}`;
     console.log(sql);
     con.query(sql,function(err,result,fields){
         if(err) throw(err);
@@ -146,7 +146,7 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
 
 router.delete('/:id',catchAsync(async(req,res,next) => {
     const cookie = req.cookies.Agencia;
-    const sql = `DELETE FROM condicionado WHERE ID = `+mysql.escape(req.params.id);
+    const sql = `DELETE FROM Condicionado WHERE ID = `+mysql.escape(req.params.id);
     con.query(sql,function(err,result){
         if(err) throw(err)
         console.log('Number of records deleted:'+result.affectedRows);

@@ -246,7 +246,7 @@ if(hora === 24){
 }
 horaCondi = hora + ':'+minCondi;
 
-const condicionada = `SELECT * FROM condicionado WHERE ID_NavioSub = ${caminho.ID_Navio} AND Data = "${dateCondi}"`;
+const condicionada = `SELECT * FROM Condicionado WHERE ID_NavioSub = ${caminho.ID_Navio} AND Data = "${dateCondi}"`;
 con.query(condicionada,function(err,result,fields){
     if(err) throw(err);
     console.log(condicionada);
