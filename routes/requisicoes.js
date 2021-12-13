@@ -7,8 +7,8 @@ const { requiSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
-const con = require('../utils/pool');
-const {dbConfig} = require('../utils/connection')
+//const con = require('../utils/pool');
+const {dbConfig,con} = require('../utils/connection')
 require('dotenv').config();
 
 //constante para pegar informacios para o e-mail
@@ -68,7 +68,7 @@ function testCon(){
         })
     ])
     if (disconnected){
-        con = mysql.createPool(dbConfig);
+        con = mysql.createConnection(dbConfig);
     }
 }
 
