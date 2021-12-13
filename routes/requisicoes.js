@@ -7,7 +7,7 @@ const { requiSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
-const con = require('../utils/connection');
+const con = require('../utils/pool');
 require('dotenv').config();
 
 //constante para pegar informacios para o e-mail
