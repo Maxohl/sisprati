@@ -292,8 +292,7 @@ router.get('/', isLoggedIn,(req,res) => {
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
-        if(err) throw(err);
-        console.log(err.code);
+        if(err) console.log(err);
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
