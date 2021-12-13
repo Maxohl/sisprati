@@ -58,6 +58,7 @@ const mailCondi = {
 function connectDb(){
     con.getConnection();
     con.on('error',connectDb());
+    console.log('hello');
 }
 
 //Variaveis para copiar nome do navio, entre outros
