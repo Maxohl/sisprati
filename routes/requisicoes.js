@@ -55,6 +55,11 @@ const mailCondi = {
     Obs : '',   
 }
 
+function connectDb(){
+    con;
+    setTimeout(con.on('error',connectDb()),2000);
+}
+
 //Variaveis para copiar nome do navio, entre outros
 let copia;
 let nameShip;
@@ -288,11 +293,12 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
+    connectDb();
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
-        if(err) console.log(err);
+        if(err) throw(err);
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
