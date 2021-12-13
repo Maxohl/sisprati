@@ -55,10 +55,6 @@ const mailCondi = {
     Obs : '',   
 }
 
-function disconnect_handler(){
-    con.connect();
-}
-
 
 //Variaveis para copiar nome do navio, entre outros
 let copia;
@@ -293,18 +289,13 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    con.on('error', err => {
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            disconnect_handler();
-        }else{
-            throw err;
-        }
-    })
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
-        if(err) throw(err);
+        if(err){
+            console.log(err);
+        }
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
