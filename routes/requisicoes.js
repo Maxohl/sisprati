@@ -289,7 +289,9 @@ con.query(condicionada,function(err,result,fields){
 
 router.get('/', isLoggedIn,(req,res) => {
     mailList();
+    console.log(dbConfig);
     con.createConnection(dbConfig);
+    console.log(con);
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
