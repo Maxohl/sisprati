@@ -57,7 +57,7 @@ const mailCondi = {
 
 function connectDb(){
     con;
-    setTimeout(con.on('error',connectDb()),2000);
+    con.on('error',connectDb());
 }
 
 //Variaveis para copiar nome do navio, entre outros
