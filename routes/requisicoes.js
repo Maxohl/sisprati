@@ -309,7 +309,7 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
     const caminho = req.body.requi;
     const dataRequi = converte(caminho.Data_requi);
     const promise = await new Promise(function(resolve,reject){
-    con.connect(function(err) {
+    con.getConnection(function(err) {
         const busca = `Select * from requisicoes WHERE Data_requi = "${dataRequi}"`;
         con.query(busca,function(err,result){    
             var hrNovo = caminho.Hora_requi+':00';     
@@ -319,7 +319,7 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
                 req.flash('error','Já existe requisição para esse horário');
                 res.redirect('requisicoes');
             }else{
-                con.connect(function(err) {
+                con.getConnection(function(err) {
                     const sql = `INSERT INTO requisicoes (ID_Navio,Data_requi,Hora_requi,Fatu_requi,Obs_requi,Requi_servico,berco_requi,posicao_requi,viagem,ID_Agencia) VALUES ("${caminho.ID_Navio}", "${caminho.Data_requi}","${caminho.Hora_requi}","${caminho.Fatu_requi}","${caminho.Obs_requi}","${caminho.Requi_servico}","${caminho.berco_requi}" ,"${caminho.posicao_requi}","${caminho.viagem}","${req.user.ID_agencia}")`;
                     con.query(sql,function(err,rows){
                         if(err)throw err; 
@@ -430,7 +430,7 @@ router.put('/:id', validateRequi,catchAsync(async(req,res, next) => {
     const caminho = req.body.requi;
     const dataRequi = converte(caminho.Data_requi);
     const promise = await new Promise(function(resolve,reject){
-    con.connect(function(err) {
+    con.getConnection(function(err) {
         const busca = `Select * from requisicoes WHERE Data_requi = "${dataRequi}" and ID <> ${caminho.ID}`;
         console.log(busca);
         con.query(busca,function(err,result){    
@@ -442,7 +442,7 @@ router.put('/:id', validateRequi,catchAsync(async(req,res, next) => {
                 req.flash('error','Já existe requisição para esse horário');
                 res.redirect('/requisicoes');
             }else{
-                con.connect(function(err) {
+                con.getConnection(function(err) {
                     const sql = `UPDATE requisicoes SET ID_Navio="${caminho.ID_Navio}", Data_requi="${caminho.Data_requi}", Hora_requi="${caminho.Hora_requi}", Fatu_requi="${caminho.Fatu_requi}", Obs_requi="${caminho.Obs_requi}", Requi_servico="${caminho.Requi_servico}", berco_requi="${caminho.berco_requi}", posicao_requi="${caminho.posicao_requi}", viagem="${caminho.viagem}", ID_Agencia="${req.user.ID_agencia}" WHERE ID = ${caminho.ID}`;
                     con.query(sql,function(err,rows){
                         if(err)throw err;
