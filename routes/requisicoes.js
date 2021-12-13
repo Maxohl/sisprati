@@ -293,7 +293,7 @@ router.get('/', isLoggedIn,(req,res) => {
     con.query(navios,function(err,result,fields){
         if(err) throw(err);
      //console.log(copia);
-    con.destroy();
+    con.destroy;
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
