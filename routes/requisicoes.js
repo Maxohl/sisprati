@@ -292,7 +292,6 @@ con.query(condicionada,function(err,result,fields){
 router.get('/', isLoggedIn,(req,res) => {
     con.on('error',function(err){
         console.log(err);
-        res.send({ success: false, message: 'database error', error: err });
         return;
     })
     mailList();
