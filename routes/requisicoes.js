@@ -60,18 +60,6 @@ let copia;
 let nameShip;
 let lista = [];
 
-//verifica conexao com BD
-function testCon(){
-    const disconnected = new Promise(resolve => [
-        con.ping(err => {
-            resolve(err);
-        })
-    ])
-    if (disconnected){
-        con = mysql.createConnection(dbConfig);
-    }
-}
-
 
 //Valida requisicoes
 const validateRequi = (req,res,next) => {
@@ -301,7 +289,7 @@ con.query(condicionada,function(err,result,fields){
 
 router.get('/', isLoggedIn,(req,res) => {
     mailList();
-    testCon();
+    con.createConnection(dbConfig);
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
