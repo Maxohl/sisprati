@@ -55,6 +55,9 @@ const mailCondi = {
     Obs : '',   
 }
 
+function disconnect_handler(){
+    con.connect();
+}
 
 
 //Variaveis para copiar nome do navio, entre outros
@@ -290,19 +293,18 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    const newCon = mysql.createPool({
-        connectionLimit : 10,
-        host: process.env.DB_HOST,
-        user: "movimentacoes",
-        password: process.env.DB_PASSWORD,
-        database: "movimentacoes",
-        port: "3306"
+    con.on('error', err => {
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            disconnect_handler();
+        }else{
+            throw err;
+        }
     })
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
-    newCon.query(navios,function(err,result,fields){
-        // if(err) throw(err);
+    con.query(navios,function(err,result,fields){
+        if(err) throw(err);
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
