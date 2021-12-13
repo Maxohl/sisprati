@@ -177,7 +177,7 @@ function allRequi(req){
         if(err) throw(err);
         //console.log(rows);
      copia = rows.slice(0,5);
-    
+     con.destroy();
      return(rows.slice(0,5));
     })
 }
@@ -278,7 +278,7 @@ con.query(condicionada,function(err,result,fields){
             mailCondi.Saida = rows[0].C_popa;
             mailCondi.Faturamento = result[0].Fatu;
             mailCondi.Obs = result[0].OBS;
-            
+            con.destroy();
             sendCondi(cookie);
         })
     
@@ -293,7 +293,7 @@ router.get('/', isLoggedIn,(req,res) => {
     con.query(navios,function(err,result,fields){
         if(err) throw(err);
      //console.log(copia);
-     
+    con.destroy(); 
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
@@ -314,7 +314,7 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
         con.query(busca,function(err,result){    
             var hrNovo = caminho.Hora_requi+':00';     
              const requiLoop = loop(result,hrNovo);
-            
+             con.destroy();
             if(requiLoop == false){
                 req.flash('error','Já existe requisição para esse horário');
                 res.redirect('requisicoes');
@@ -335,7 +335,7 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
                         checkCondi(caminho,cookie);
                       })
                      req.flash('Sucesso','Requisicao registrada com sucesso!');
-                     
+                     con.destroy();
                      res.redirect('/navios');
                     });
             }
@@ -362,7 +362,7 @@ router.post('/new',catchAsync(async(req,res,next) => {
     mailLetter.LOA = result[0].LOA;
     mailLetter.Entrada = 'FWD: '+result[0].C_proa+'m  AFT: '+result[0].C_popa+'m';
     mailLetter.Saida = 'FWD: '+result[0].CS_proa+'m AFT: '+result[0].CS_popa+'m';
-    
+    con.destroy();
     res.render('requisicoes/new',{title:'Lista Navios', requiData:result});
     })
 }));
@@ -375,7 +375,7 @@ router.get('/edit/:id',isLoggedIn,(req,res) => {
      if(err) throw(err);
      console.log(result[0].ID_Agencia);
      console.log(cookie);
-     
+     con.destroy();
      if(result[0].ID_Agencia == cookie){
      NomeNavio(result,res) 
      }else{
@@ -400,7 +400,7 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
      mailLetter.Faturamento = result[0].Fatu_requi;    
      mailLetter.Obs = result[0].Obs_requi; 
      mailLetter.Servico = result[0].Requi_servico;  
-     
+     con.destroy();
      const navio = `SELECT * FROM navios WHERE ID = ${result[0].ID_Navio}`
      con.query(navio, function(err,rows,fields){
          const nome = rows[0].Navio;
@@ -414,7 +414,7 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
          mailLetter.LOA = rows[0].LOA;
          mailLetter.Entrada = 'FWD: '+rows[0].C_proa+'m  AFT: '+rows[0].C_popa+'m';
          mailLetter.Saida = 'FWD: '+rows[0].CS_proa+'m AFT: '+rows[0].CS_popa+'m';
-         
+         con.destroy();
          res.render('requisicoes/show',{Navio:nome, requiData:result});   
      })
  }else{
@@ -437,7 +437,7 @@ router.put('/:id', validateRequi,catchAsync(async(req,res, next) => {
             var hrNovo = caminho.Hora_requi+':00';      
              console.log('before loop '+result);        
              const requiLoop = loop(result,hrNovo);
-            
+             con.destroy();
             if(requiLoop == false){
                 req.flash('error','Já existe requisição para esse horário');
                 res.redirect('/requisicoes');
@@ -454,7 +454,7 @@ router.put('/:id', validateRequi,catchAsync(async(req,res, next) => {
                         mailLetter.Faturamento = caminho.Fatu_requi;    
                         mailLetter.Obs = caminho.Obs_requi; 
                         mailLetter.Servico = caminho.Requi_servico; 
-                               
+                        con.destroy();       
                         sendMail(cookie,mailLetter);
                       })
                      req.flash('Sucesso','Requisição Atualizada com sucesso!');
@@ -476,7 +476,7 @@ router.delete('/:id',catchAsync(async(req,res,next) => {
         sendMail(cookie,mailLetter);
         console.log('Number of records deleted:'+result.affectedRows);
         req.flash('Sucesso','Requisição Cancelada!')
-        
+        con.destroy();
         res.redirect('/requisicoes');
     })
 }))
