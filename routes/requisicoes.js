@@ -56,7 +56,7 @@ const mailCondi = {
 }
 
 function connectDb(){
-    con;
+    con.getConnection();
     con.on('error',connectDb());
 }
 

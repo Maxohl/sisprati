@@ -31,7 +31,6 @@ const mysql = require('mysql2');
   database:"movimentacoes",
   port: "3306"
 });
-
 module.exports = con;
 
 
