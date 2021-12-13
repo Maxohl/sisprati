@@ -62,7 +62,7 @@ let lista = [];
 
 //verifica conexao com BD
 function testCon(){
-    const disconnected = await new Promise(resolve => [
+    const disconnected = new Promise(resolve => [
         con.ping(err => {
             resolve(err);
         })
