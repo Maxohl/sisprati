@@ -8,6 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
+const {dbConfig} = require('../utils/connection')
 require('dotenv').config();
 
 //constante para pegar informacios para o e-mail
@@ -54,10 +55,22 @@ const mailCondi = {
     Obs : '',   
 }
 
+//Variaveis para copiar nome do navio, entre outros
 let copia;
 let nameShip;
-
 let lista = [];
+
+//verifica conexao com BD
+function testCon(){
+    const disconnected = await new Promise(resolve => [
+        con.ping(err => {
+            resolve(err);
+        })
+    ])
+    if (disconnected){
+        con = mysql.createPool(dbConfig);
+    }
+}
 
 
 //Valida requisicoes
@@ -288,6 +301,7 @@ con.query(condicionada,function(err,result,fields){
 
 router.get('/', isLoggedIn,(req,res) => {
     mailList();
+    testCon();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
