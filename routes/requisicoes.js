@@ -299,7 +299,7 @@ con.query(condicionada,function(err,result,fields){
 })
 }
 
-router.get('/', isLoggedIn,(req,res) => {
+router.get('/', isLoggedIn,(async(req,res,next) => {
     mailList();
     testCon();
     allRequi(req); 
@@ -310,7 +310,7 @@ router.get('/', isLoggedIn,(req,res) => {
     con.end();
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
-   });
+   }));
 
 // router.post('/navios',async(req,res)=>{
 //     console.log(req.body.navio.Navio)
