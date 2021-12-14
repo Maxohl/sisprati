@@ -11,20 +11,20 @@ let db_config = {
     port: "3306",
 };
 
-let connection = mysql.createConnection(db_config);
+let conn = mysql.createConnection(db_config);
 
 module.exports = function handleDisconnect(){
     console.log('handleDisconnect()');
-    connection = mysql.createConnection(db_config);
+    conn = mysql.createConnection(db_config);
 
-    connection.connect(function(err){
+    conn.connect(function(err){
      if(err){
         console.log('Error when connecting to the database',err);
         setTimeout(handleDisconnect,1000);
      }
     });
 
-    connection.on(' Database Error',function(err){
+    conn.on(' Database Error',function(err){
         console.log('Database error: '+ err.code, err);
         if(err.code === 'PROTOCOL_CONNECTION_LOST'){
             handleDisconnect();
@@ -34,5 +34,5 @@ module.exports = function handleDisconnect(){
     });
 }
 
-module.exports = connection;
+module.exports = conn;
 

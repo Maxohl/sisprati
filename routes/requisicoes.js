@@ -8,7 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
-const {handleDisconnect,connection} = require('../utils/handleDisconnect');
+const {handleDisconnect,conn} = require('../utils/handleDisconnect');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
@@ -290,7 +290,7 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    connection.connect(function(err){
+    conn.connect(function(err){
         if(err){
             console.log('Connection is asleep(time to wake it up): ', err);
             setTimeout(handleDisconnect,1000);
