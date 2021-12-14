@@ -322,12 +322,6 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    conn.connect(function(err){
-        if(err){
-            console.log('Connection is asleep(time to wake it up): ', err);
-            setTimeout(handleDisconnect,1000);
-        }
-    });
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;

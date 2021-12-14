@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { condicionadaSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const converte = require('../utils/convertDate');
-const con = require('../utils/connection');
+const con = require('../utils/pool');
 require('dotenv').config();
 
 let copia;

@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { navioSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
-const con = require('../utils/connection');
+const con = require('../utils/pool');
 
 
 function converte(date){
