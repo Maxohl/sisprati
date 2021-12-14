@@ -13,6 +13,18 @@ function setVar(result,result2){
 	idAgencia = result2;
 }
 
+//variaveis para reconectar
+let db_config = {
+    connectionLimit : 10,
+    host: process.env.DB_HOST,
+    user: "movimentacoes",
+    password: process.env.DB_PASSWORD,
+    database: "movimentacoes",
+    port: "3306",
+};
+
+let conn = mysql.createConnection(db_config);
+
 module.exports = function(app, passport) {
 
 	// =====================================

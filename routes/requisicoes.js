@@ -8,7 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
-const {handleDisconnect,conn} = require('../utils/handleDisconnect');
+const handleDisconnect = require('../utils/handleDisconnect');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
@@ -56,6 +56,18 @@ const mailCondi = {
     Obs : '',   
 }
 
+
+//variaveis para reconectar
+let db_config = {
+    connectionLimit : 10,
+    host: process.env.DB_HOST,
+    user: "movimentacoes",
+    password: process.env.DB_PASSWORD,
+    database: "movimentacoes",
+    port: "3306",
+};
+
+let conn = mysql.createConnection(db_config);
 
 //Variaveis para copiar nome do navio, entre outros
 let copia;
