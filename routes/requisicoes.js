@@ -69,6 +69,27 @@ let db_config = {
 
 let conn = mysql.createConnection(db_config);
 
+function handleDisconnect(){
+    console.log('handleDisconnect()');
+    conn = mysql.createConnection(db_config);
+
+    conn.connect(function(err){
+     if(err){
+        console.log('Error when connecting to the database',err);
+        setTimeout(handleDisconnect,1000);
+     }
+    });
+
+    conn.on(' Database Error',function(err){
+        console.log('Database error: '+ err.code, err);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            handleDisconnect();
+        }else{
+            throw err;
+        }
+    });
+}
+
 //Variaveis para copiar nome do navio, entre outros
 let copia;
 let nameShip;
