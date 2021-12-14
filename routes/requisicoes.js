@@ -8,7 +8,6 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
-const handleDisconnect = require('../utils/handleDisconnect');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
