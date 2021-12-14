@@ -34,3 +34,5 @@ module.exports = function handleDisconnect(){
     });
 }
 
+module.exports = connection;
+

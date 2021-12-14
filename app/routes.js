@@ -1,7 +1,9 @@
+import {Connection} from 'mysql2'
 const mysql = require('mysql2');
 // app/routes.js
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/pool');
+const {handleDisconnect,connection} = require('../utils/handleDisconnect');
 
 var nomeAgencia;
 var idAgencia;
@@ -69,7 +71,13 @@ module.exports = function(app, passport) {
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {				
+	app.get('/profile', isLoggedIn, function(req, res) {
+		connection.connect(function(err){
+			if(err){
+				console.log('Connection is asleep (time to wake it up):', err);
+				setTimeout(handleDisconnect,1000);
+			}
+		});
 		req.session.user_ID = req.user.ID;
 		req.session.user_Agencia = req.user.ID_agencia;
 		console.log(req.user);
