@@ -8,6 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
+const handleDisconnect = require('../utils/handleDisconnect');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
@@ -60,40 +61,6 @@ const mailCondi = {
 let copia;
 let nameShip;
 let lista = [];
-
-//function para reconectar
-//variaveis para conexao
-let db_config = {
-    connectionLimit : 10,
-    host: process.env.DB_HOST,
-    user: "movimentacoes",
-    password: process.env.DB_PASSWORD,
-    database: "movimentacoes",
-    port: "3306",
-};
-
-let connection = mysql.createConnection(db_config);
-
-function handleDisconnect(){
-    console.log('handleDisconnect()');
-    connection = mysql.createConnection(db_config);
-
-    connection.connect(function(err){
-     if(err){
-        console.log('Error when connecting to the database',err);
-        setTimeout(handleDisconnect,1000);
-     }
-    });
-
-    connection.on(' Database Error',function(err){
-        console.log('Database error: '+ err.code, err);
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            handleDisconnect();
-        }else{
-            throw err;
-        }
-    });
-}
 
 
 //Valida requisicoes
