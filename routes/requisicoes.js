@@ -61,6 +61,40 @@ let copia;
 let nameShip;
 let lista = [];
 
+//function para reconectar
+//variaveis para conexao
+let db_config = {
+    connectionLimit : 10,
+    host: process.env.DB_HOST,
+    user: "movimentacoes",
+    password: process.env.DB_PASSWORD,
+    database: "movimentacoes",
+    port: "3306",
+};
+
+let connection = mysql.createConnection(db_config);
+
+function handleDisconnect(){
+    console.log('handleDisconnect()');
+    connection = mysql.createConnection(db_config);
+
+    connection.connect(function(err){
+     if(err){
+        console.log('Error when connecting to the database',err);
+        setTimeout(handleDisconnect,1000);
+     }
+    });
+
+    connection.on(' Database Error',function(err){
+        console.log('Database error: '+ err.code, err);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            handleDisconnect();
+        }else{
+            throw err;
+        }
+    });
+}
+
 
 //Valida requisicoes
 const validateRequi = (req,res,next) => {
@@ -289,6 +323,12 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
+    connection.connect(function(err){
+        if(err){
+            console.log('Connection is asleep(time to wake it up): ', err);
+            setTimeout(handleDisconnect,1000);
+        }
+    });
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
