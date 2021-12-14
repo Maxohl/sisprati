@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 // app/routes.js
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/pool');
-const {handleDisconnect,conn} = require('../utils/handleDisconnect');
+const handleDisconnect = require('../utils/handleDisconnect');
 
 var nomeAgencia;
 var idAgencia;
