@@ -1,4 +1,4 @@
-import {Connection} from 'mysql2'
+// import {Connection} from 'mysql2'
 const mysql = require('mysql2');
 // app/routes.js
 const isLoggedIn = require('../utils/isLogged');
