@@ -1,5 +1,5 @@
 // import {Connection} from 'mysql2'
-const mysql = require('mysql2');
+
 // app/routes.js
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/pool');
@@ -13,38 +13,7 @@ function setVar(result,result2){
 	idAgencia = result2;
 }
 
-//variaveis para reconectar
-let db_config = {
-    connectionLimit : 10,
-    host: process.env.DB_HOST,
-    user: "movimentacoes",
-    password: process.env.DB_PASSWORD,
-    database: "movimentacoes",
-    port: "3306",
-};
 
-let conn = mysql.createConnection(db_config);
-
-function handleDisconnect(){
-    console.log('handleDisconnect()');
-    conn = mysql.createConnection(db_config);
-
-    conn.connect(function(err){
-     if(err){
-        console.log('Error when connecting to the database',err);
-        setTimeout(handleDisconnect,1000);
-     }
-    });
-
-    conn.on(' Database Error',function(err){
-        console.log('Database error: '+ err.code, err);
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            handleDisconnect();
-        }else{
-            throw err;
-        }
-    });
-}
 
 module.exports = function(app, passport) {
 
@@ -105,12 +74,6 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
-		conn.connect(function(err){
-			if(err){
-				console.log('Connection is asleep (time to wake it up):', err);
-				setTimeout(handleDisconnect,1000);
-			}
-		});
 		req.session.user_ID = req.user.ID;
 		req.session.user_Agencia = req.user.ID_agencia;
 		console.log(req.user);

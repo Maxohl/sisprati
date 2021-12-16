@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
 const pool = mysql.createPool({
     connectionLimit : 10,
@@ -9,4 +9,19 @@ const pool = mysql.createPool({
     port: "3306"
   });
   
+  pool.getConnection(function(err){
+    if(err){
+      console.log('Erro de conexao SQL ' + err)
+    } else {
+      console.log('Sucesso de conexao SQL ');
+    }
+  });
+
+  pool.on("close", function(err){
+    console.log('Conexao SQL fechada: ' + err);
+  });
+
+  pool.on("error",function(err){
+    console.log('Erro de conexao SQL: ' +err);
+  })
   module.exports = pool;

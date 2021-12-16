@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const { navioSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/pool');
@@ -10,9 +10,15 @@ const con = require('../utils/pool');
 
 function converte(date){
     date = new Date(date);
-    //return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2);
-     return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4);    
+    // return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2);
+    return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4);    
     };
+
+    function converteInverso(date){
+        date = new Date(date);
+        return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2);
+        // return date.getUTCDate() + '/' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '/' + ('0000' + date.getUTCFullYear()).slice(-4);    
+        };
 
     const validateNavio = (req, res, next) => {    
         const { error } = navioSchema.validate(req.body);
@@ -88,9 +94,9 @@ router.get('/:id/edit',isLoggedIn, (req,res) => {
             req.flash('error','Navio nao encontrado');
             return res.redirect('/navios');
         };
-         const dateEta = converte(result[0].ETA_Data);
-         const dateEtb = converte(result[0].ETB_Data);
-         const dateEts = converte(result[0].ETS_Data);
+         const dateEta = converteInverso(result[0].ETA_Data);
+         const dateEtb = converteInverso(result[0].ETB_Data);
+         const dateEts = converteInverso(result[0].ETS_Data);
         res.render('navios/edit',{title:'Edit Navio', naviosData:result, dateEta,dateEtb,dateEts});
     });
 });

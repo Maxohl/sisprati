@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const { requiSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
@@ -55,40 +55,6 @@ const mailCondi = {
     Obs : '',   
 }
 
-
-//variaveis para reconectar
-let db_config = {
-    connectionLimit : 10,
-    host: process.env.DB_HOST,
-    user: "movimentacoes",
-    password: process.env.DB_PASSWORD,
-    database: "movimentacoes",
-    port: "3306",
-};
-
-let conn = mysql.createConnection(db_config);
-
-function handleDisconnect(){
-    console.log('handleDisconnect()');
-    conn = mysql.createConnection(db_config);
-
-    conn.connect(function(err){
-     if(err){
-        console.log('Error when connecting to the database',err);
-        setTimeout(handleDisconnect,1000);
-     }
-    });
-
-    conn.on(' Database Error',function(err){
-        console.log('Database error: '+ err.code, err);
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            handleDisconnect();
-        }else{
-            throw err;
-        }
-    });
-}
-
 //Variaveis para copiar nome do navio, entre outros
 let copia;
 let nameShip;
@@ -106,7 +72,7 @@ const validateRequi = (req,res,next) => {
     }
 }
 
-//Pega lista de e-mails para envio
+//Pega lista de e-mails para envio e adiciona eles para variavel lista
 function mailList(){
 const query = 'SELECT email FROM emails';
 con.query(query,function(err,result,fields){ 
@@ -322,13 +288,14 @@ con.query(condicionada,function(err,result,fields){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    mailList();
-    allRequi(req); 
+    allRequi(req);
+    mailList(); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
         if(err){
             console.log(err);
         }
+    // con.release;
     res.render('requisicoes/index',{title:'Lista Navios', naviosData:result, requiData:copia});
    });
    });
