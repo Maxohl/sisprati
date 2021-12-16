@@ -1,5 +1,5 @@
 {
-  "name": "node-authentication",
+  "name": "sisprati",
   "main": "app.js",
   "scripts": {
     "start": "node ./app"
