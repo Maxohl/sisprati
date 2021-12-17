@@ -6,7 +6,7 @@ const mysql = require('mysql');
 const { navioSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const con = require('../utils/pool');
-//testing
+
 
 function converte(date){
     date = new Date(date);

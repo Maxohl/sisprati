@@ -1062,11 +1062,16 @@
     "named-placeholders": "^1.1.2",
     "postcss-focus-visible": "^4.0.0"
   },
+  "engines": {
+    "npm": ">=6.0.0",
+    "node": ">=10.0.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"
-}
+},
+
 
