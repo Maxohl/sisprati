@@ -7,6 +7,7 @@ const { condicionadaSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
+const sgMail = require('@sendgrid/mail')
 require('dotenv').config();
 
 let copia;
@@ -47,7 +48,7 @@ function mailList(){
 
 //Envia e-mail de requisicao condicionada
 function sendCondi(cookie){
-    const sgMail = require('@sendgrid/mail')
+    // const sgMail = require('@sendgrid/mail')
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     let situacao;
     if(mailCondi.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
