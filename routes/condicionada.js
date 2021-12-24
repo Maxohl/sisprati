@@ -161,7 +161,7 @@ router.post('/',validateCondi, isLoggedIn,catchAsync(async(req,res) => {
         mailCondi.Data = converte(caminho.Data) ;
         mailCondi.Berco = caminho.Berco;  
         mailCondi.Servico = caminho.Servico; 
-        mailCondi.Posicao = caminho.Posicao; 
+        mailCondi.Posicao = caminho.Posicao_Berco; 
         mailCondi.Faturamento = caminho.Fatu;    
         mailCondi.Obs = caminho.OBS; 
         sendCondi(cookie,mailCondi);
@@ -195,13 +195,12 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
         const navio = `SELECT * FROM navios WHERE ID = ${result[0].ID_NavioMain}`
         console.log(navio);
         console.log(result[0]);
-        mailCondi.Data = converte(result[0].Data_requi);
-        mailCondi.Berco = result[0].berco_requi;  
-        mailCondi.Servico = result[0].Requi_servico; 
-        mailCondi.Posicao = result[0].posicao_requi; 
-        mailCondi.Faturamento = result[0].Fatu_requi;    
-        mailCondi.Obs = result[0].Obs_requi; 
-        mailCondi.Servico = result[0].Requi_servico; 
+        mailCondi.Data = converte(result[0].Data);
+        mailCondi.Berco = result[0].Berco;  
+        mailCondi.Servico = result[0].Servico; 
+        mailCondi.Posicao = result[0].Posicao_Berco; 
+        mailCondi.Faturamento = result[0].Fatu;    
+        mailCondi.Obs = result[0].OBS; 
         con.query(navio, function(err,rows,fields){
             const nome = rows[0].Navio;
             mailCondi.Navio = rows[0].Navio;
@@ -212,8 +211,8 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
             mailCondi.GRT = rows[0].GRT;
             mailCondi.DWT = rows[0].DWT;
             mailCondi.LOA = rows[0].LOA;
-            mailCondi.Entrada = 'FWD: '+result[0].C_proa+'m  AFT: '+rows[0].C_popa+'m';
-            mailCondi.Saida = 'FWD: '+result[0].CS_proa+'m AFT: '+rows[0].CS_popa+'m';
+            mailCondi.Entrada = 'FWD: '+rows[0].C_proa+'m  AFT: '+rows[0].C_popa+'m';
+            mailCondi.Saida = 'FWD: '+rows[0].CS_proa+'m AFT: '+rows[0].CS_popa+'m';
             res.render('condicionada/show',{Navio:nome, requiData:result})
         })
       }else{
