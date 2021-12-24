@@ -332,7 +332,7 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
                         mailLetter.Posicao = caminho.posicao_requi; 
                         mailLetter.Faturamento = caminho.Fatu_requi;    
                         mailLetter.Obs = caminho.Obs_requi; 
-                        mailLetter.Servico = caminho.Requi_servico;          
+                                 
                         sendMail(cookie,mailLetter);
                         checkCondi(caminho,cookie);
                       })
@@ -401,7 +401,7 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
      mailLetter.Posicao = result[0].posicao_requi; 
      mailLetter.Faturamento = result[0].Fatu_requi;    
      mailLetter.Obs = result[0].Obs_requi; 
-     mailLetter.Servico = result[0].Requi_servico;  
+     
      
      const navio = `SELECT * FROM navios WHERE ID = ${result[0].ID_Navio}`
      con.query(navio, function(err,rows,fields){
@@ -455,7 +455,7 @@ router.put('/:id', validateRequi,catchAsync(async(req,res, next) => {
                         mailLetter.Posicao = caminho.posicao_requi; 
                         mailLetter.Faturamento = caminho.Fatu_requi;    
                         mailLetter.Obs = caminho.Obs_requi; 
-                        mailLetter.Servico = caminho.Requi_servico; 
+                       
                                
                         sendMail(cookie,mailLetter);
                       })
