@@ -49,7 +49,7 @@ router.get('/', isLoggedIn, (req,res) => {
    router.post('/', validateNavio, catchAsync(async(req,res,next) => {
    //   if(!req.body.navio) throw new ExpressError('Dados Invalidos', 400);     
      const caminho = req.body.navio;
-     con.connect(function(err) {
+    //  con.connect(function(err) {
        //   if(err)throw err;      
        const sql = `INSERT INTO navios (Navio,Bandeira,IMO,Viagem,armador,berco,ETA_Data,ETA_Time,DWT,GRT,LOA,Carga,ETB_Data,ETB_Time,ETS_Data,ETS_Time,C_proa,C_popa,CS_proa,CS_popa,situacao, ID_agencia) VALUES ("${caminho.Navio}", "${caminho.Bandeira}", "${caminho.IMO}","${caminho.Viagem}","${caminho.Armador}","${caminho.Berco}","${caminho.ETA}","${caminho.ETA_time}","${caminho.DWT}","${caminho.GRT}","${caminho.LOA}","${caminho.Carga}","${caminho.ETB}","${caminho.ETB_time}","${caminho.ETS}","${caminho.ETS_time}","${caminho.C_proa}","${caminho.C_popa}","${caminho.CS_proa}","${caminho.CS_popa}","${caminho.situation}","${req.user.ID_agencia}")`;
          con.query(sql,function(err,result){
@@ -59,7 +59,7 @@ router.get('/', isLoggedIn, (req,res) => {
              res.redirect(`/navios/${result.insertId}`);            
              
          });
-     }); 
+      
    }));
 
    router.get('/:id', isLoggedIn,catchAsync(async(req,res,next) => {
