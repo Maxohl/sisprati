@@ -153,6 +153,7 @@ function allRequi(req){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
+    console.log('Chave para e-mail = ' + process.env.SENDGRID_API_KEY);
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
