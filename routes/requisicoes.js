@@ -332,12 +332,11 @@ router.post('/', validateRequi,catchAsync(async(req,res, next) => {
                         mailLetter.Posicao = caminho.posicao_requi; 
                         mailLetter.Faturamento = caminho.Fatu_requi;    
                         mailLetter.Obs = caminho.Obs_requi; 
-                                 
-                        sendMail(cookie,mailLetter);
+                            
+                        sendMail(cookie,mailLetter);                        
                         checkCondi(caminho,cookie);
                       })
-                     req.flash('Sucesso','Requisicao registrada com sucesso!');
-                     
+                     req.flash('Sucesso','Requisicao registrada com sucesso!');                     
                      res.redirect('/navios');
                     });
             }
@@ -477,8 +476,7 @@ router.delete('/:id',catchAsync(async(req,res,next) => {
         mailLetter.Subject = 'CANCELAMENTO DE REQUISIÇÃO DE SERVIÇOS DE PRATICAGEM' 
         sendMail(cookie,mailLetter);
         console.log('Number of records deleted:'+result.affectedRows);
-        req.flash('Sucesso','Requisição Cancelada!')
-       
+        req.flash('Sucesso','Requisição Cancelada!')       
         res.redirect('/requisicoes');
     })
 }))

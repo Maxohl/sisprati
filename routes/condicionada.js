@@ -21,6 +21,7 @@ const mailCondi = {
     Navio: '',
     Data: '',
     Servico:'',
+    Condicao:'',
     Berco: '',
     Posicao:'',
     IMO:'',
@@ -49,6 +50,7 @@ function mailList(){
 //Envia e-mail de requisicao condicionada
 function sendCondi(cookie){
     // const sgMail = require('@sendgrid/mail')
+    console.log('entrou na funcao de e-mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     let situacao;
     if(mailCondi.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
@@ -58,7 +60,8 @@ function sendCondi(cookie){
     }
     //conteudo do e-mail
     const msg = {
-      to: [lista], // Change to your recipient
+    //   to: [lista], // Change to your recipient
+      to: 'maxohl@hotmail.com',
       from: 'sisprati@hotmail.com', // Change to your verified sender
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
       text: 'Teste',
@@ -101,7 +104,7 @@ const validateCondi = (req,res,next) => {
 }
 
 function Redirecionar(result,res){
-    console.log(result);
+    console.log('redirecionar');
     const navio = 'SELECT * FROM navios ORDER BY Navio';
     con.query(navio,function(err,rows,fields){
         if(err) throw(err);
@@ -111,10 +114,21 @@ function Redirecionar(result,res){
 }
 
 function NomeNavio(ID,res){
+    console.log('NomeNavio');
     const navio = `SELECT * FROM navios where ID = ${ID[0].ID_NavioMain}`
     con.query(navio,function(err,rows,fields){
         if(err) throw(err)
-        nameShip = rows.slice(0,1);       
+        nameShip = rows.slice(0,1);  
+        mailCondi.Navio = rows[0].Navio;
+        mailCondi.IMO = rows[0].IMO;
+        mailCondi.Bandeira = rows[0].Bandeira;
+        mailCondi.Armador = rows[0].armador;
+        mailCondi.Carga = rows[0].Carga;
+        mailCondi.GRT = rows[0].GRT;
+        mailCondi.DWT = rows[0].DWT;
+        mailCondi.LOA = rows[0].LOA;
+        mailCondi.Entrada = 'FWD: '+rows[0].C_proa+'m  AFT: '+rows[0].C_popa+'m';
+        mailCondi.Saida = 'FWD: '+rows[0].CS_proa+'m AFT: '+rows[0].CS_popa+'m';    
         //return(rows[0].Navio);
         Redirecionar(ID,res);
     })
@@ -164,7 +178,9 @@ router.post('/',validateCondi, isLoggedIn,catchAsync(async(req,res) => {
         mailCondi.Posicao = caminho.Posicao_Berco; 
         mailCondi.Faturamento = caminho.Fatu;    
         mailCondi.Obs = caminho.OBS; 
+        console.log('right before sending e-mail');
         sendCondi(cookie,mailCondi);
+        console.log('after function to send e-mail');
         req.flash('Sucesso','Requisição Condicionada registrada com sucesso');
         res.redirect('/navios');
     })
@@ -251,7 +267,16 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
     const Requi = `SELECT * from navios where ID = ${caminho.navioID} order by Navio`;
     con.query(Requi,function(err,result,fields){
          if(err) throw(err);
-    
+         mailCondi.Navio = result[0].Navio;
+         mailCondi.IMO = result[0].IMO;
+         mailCondi.Bandeira = result[0].Bandeira;
+         mailCondi.Armador = result[0].armador;
+         mailCondi.Carga = result[0].Carga;
+         mailCondi.GRT = result[0].GRT;
+         mailCondi.DWT = result[0].DWT;
+         mailCondi.LOA = result[0].LOA;
+         mailCondi.Entrada = 'FWD: '+result[0].C_proa+'m  AFT: '+result[0].C_popa+'m';
+         mailCondi.Saida = 'FWD: '+result[0].CS_proa+'m AFT: '+result[0].CS_popa+'m';
         listaNavios(result,res);
          // res.render('condicionada/new',{title:'Lista Navios', condiData:result});
     })
