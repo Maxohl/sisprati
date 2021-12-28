@@ -133,12 +133,7 @@ sgMail
 function sendCondi(cookie){
     const sgMail = require('@sendgrid/mail')
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    let situacao;
-    if(mailCondi.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
-        situacao = `<b>CALADO DE SAÍDA: </b>${mailCondi.Saida}<br>`;    
-    }else{
-        situacao = `<b>CALADO DE ENTRADA: </b>${mailCondi.Entrada}<br>`;
-    }
+    let situacao = `<b>CALADO DE ENTRADA: </b>${mailCondi.Entrada}<br>`;
     //conteudo do e-mail
     const msg = {
       to: listEmail, // Change to your recipient
