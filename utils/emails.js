@@ -14,9 +14,9 @@
      {
          email: 'eltonvillajr@gmail.com',
      },
-     {
-        email: 'rduarte45@gmail.com',
-    },
+    //  {
+    //     email: 'rduarte45@gmail.com',
+    // },
     // {
     //     email: 'lgbazilio@gmail.com',
     // },
