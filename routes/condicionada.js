@@ -7,6 +7,7 @@ const { condicionadaSchema } = require('../schemas.js');
 const isLoggedIn = require('../utils/isLogged');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
+const listEmail = require('../utils/emails');
 const sgMail = require('@sendgrid/mail')
 require('dotenv').config();
 
@@ -56,15 +57,7 @@ function sendCondi(cookie){
 
     const msg = {
        // Change to your recipient
-      to: [
-          {
-              email: 'maxohl@hotmail.com',
-           },
-           {
-               email: 'maxohl12@gmail.com',
-           },
-        ],
-  
+      to: listEmail,  
     //   cc: 'maxohl@hotmail.com',
       from: 'sisprati@hotmail.com', // Change to your verified sender
     //   to: [lista],
