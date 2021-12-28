@@ -37,7 +37,7 @@
      },
      {
          email: 'eltonvillajr@gmail.com'
-     }
+     },
   ]
 
   module.exports = listEmail;

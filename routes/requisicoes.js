@@ -141,8 +141,8 @@ function sendCondi(cookie){
     }
     //conteudo do e-mail
     const msg = {
-      to: listEmail, // Change to your recipient
       from: 'sisprati@hotmail.com', // Change to your verified sender
+      to: listEmail, // Change to your recipient
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
       text: 'Teste',
       html:
