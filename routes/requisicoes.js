@@ -8,7 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
-const {listEmail,listCC} = require('../utils/emails');
+const listEmail = require('../utils/emails');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
@@ -99,8 +99,8 @@ const msg = {
   from: {
       email: 'sisprati@hotmail.com'
   },
-  to: listEmail,
-//   cc: listCC,
+  to: 'maxohl@hotmail.com',
+  cc: listEmail, 
   subject: `${mailLetter.Subject} ${mailLetter.Navio}`,
   text: 'Teste',
   html:
