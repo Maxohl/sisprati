@@ -20,9 +20,9 @@
      {
          email: 'rduarte45@gmail.com',
      },
-     {
-         email: 'lgbazilio@gmail.com',
-     },
+    //  {
+    //      email: 'lgbazilio@gmail.com',
+    //  },
     //  {
     //      email: 'operacoes@portodeimbituba.com.br',
     //  },
