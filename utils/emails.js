@@ -8,12 +8,12 @@
      {
          email: 'raphaelinglez@gmail.com',
      },
-     {
-         email: 'imbitubapilots@gmail.com',
-     },
-     {
-         email: 'eltonvillajr@gmail.com',
-     },
+    //  {
+    //      email: 'imbitubapilots@gmail.com',
+    //  },
+    //  {
+    //      email: 'eltonvillajr@gmail.com',
+    //  },
     //  {
     //     email: 'rduarte45@gmail.com',
     // },
