@@ -100,7 +100,7 @@ const msg = {
       email: 'sisprati@hotmail.com'
   },
   to: listEmail,
-  cc: listCC,
+//   cc: listCC,
   subject: `${mailLetter.Subject} ${mailLetter.Navio}`,
   text: 'Teste',
   html:
