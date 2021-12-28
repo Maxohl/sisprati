@@ -18,7 +18,7 @@
                 <li class="list-group-item"><b>Faturamento:</b> <%= result.Fatu_requi %></li>
             </ul>
             <div class="card-body">
-                <a href="/requisicoes/edit/<%= result.ID %>" class="card-link btn btn-info text-white">Editar Requisição</a>
+                <a href="/requisicoes/edit/<%= result.ID %>" class="card-link btn btn-info text-white mb-3">Editar Requisição</a>
                     <form class="d-inline" action="/requisicoes/<%= result.ID %>?_method=DELETE" method="POST">
                         <button class="btn btn-danger">Cancelar Requisição</button>
                     </form>
