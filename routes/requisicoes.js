@@ -8,6 +8,7 @@ const isLoggedIn = require('../utils/isLogged');
 const moment = require('moment');
 const converte = require('../utils/convertDate');
 const con = require('../utils/pool');
+const listEmail = require('../utils/emails');
 // const con = require('../utils/connection')
 require('dotenv').config();
 
@@ -95,7 +96,7 @@ if(mailLetter.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
 //conteudo do e-mail
 const msg = {    
   from: 'sisprati@hotmail.com', 
-  to: [lista],
+  to: listEmail,
   subject: `${mailLetter.Subject} ${mailLetter.Navio}`,
   text: 'Teste',
   html:
@@ -139,7 +140,7 @@ function sendCondi(cookie){
     }
     //conteudo do e-mail
     const msg = {
-      to: [lista], // Change to your recipient
+      to: listEmail, // Change to your recipient
       from: 'sisprati@hotmail.com', // Change to your verified sender
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
       text: 'Teste',
