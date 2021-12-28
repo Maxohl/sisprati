@@ -96,7 +96,9 @@ if(mailLetter.Servico == 'DESATRACACAO' || mailLetter.Servico == 'DESATRACACAOF'
 }
 //conteudo do e-mail
 const msg = {    
-  from: 'sisprati@hotmail.com', 
+  from: {
+      email: 'sisprati@hotmail.com'
+  },
   to: listEmail,
   subject: `${mailLetter.Subject} ${mailLetter.Navio}`,
   text: 'Teste',
@@ -141,7 +143,9 @@ function sendCondi(cookie){
     }
     //conteudo do e-mail
     const msg = {
-      from: 'sisprati@hotmail.com', // Change to your verified sender
+      from: {
+          email: 'sisprati@hotmail.com'
+      },
       to: listEmail, // Change to your recipient
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
       text: 'Teste',
