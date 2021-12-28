@@ -50,7 +50,6 @@ function mailList(){
 //Envia e-mail de requisicao condicionada
 function sendCondi(cookie){
     // const sgMail = require('@sendgrid/mail')
-    console.log('entrou na funcao de e-mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     let situacao;
     if(mailCondi.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
@@ -60,8 +59,8 @@ function sendCondi(cookie){
     }
     //conteudo do e-mail
     const msg = {
-    //   to: [lista], // Change to your recipient
-      to: 'maxohl@hotmail.com',
+      to: [lista], // Change to your recipient
+    //   to: 'maxohl@hotmail.com',
       from: 'sisprati@hotmail.com', // Change to your verified sender
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
       text: 'Teste',
@@ -114,7 +113,6 @@ function Redirecionar(result,res){
 }
 
 function NomeNavio(ID,res){
-    console.log('NomeNavio');
     const navio = `SELECT * FROM navios where ID = ${ID[0].ID_NavioMain}`
     con.query(navio,function(err,rows,fields){
         if(err) throw(err)
@@ -153,7 +151,6 @@ function allRequi(req){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    console.log('Chave para e-mail = ' + process.env.SENDGRID_API_KEY);
     mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
@@ -179,9 +176,7 @@ router.post('/',validateCondi, isLoggedIn,catchAsync(async(req,res) => {
         mailCondi.Posicao = caminho.Posicao_Berco; 
         mailCondi.Faturamento = caminho.Fatu;    
         mailCondi.Obs = caminho.OBS; 
-        console.log('right before sending e-mail');
         sendCondi(cookie,mailCondi);
-        console.log('after function to send e-mail');
         req.flash('Sucesso','Requisição Condicionada registrada com sucesso');
         res.redirect('/navios');
     })
@@ -255,7 +250,6 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
         mailCondi.Obs = caminho.OBS; 
                        
         sendCondi(cookie,mailCondi);
-        console.log(result);
         req.flash('Sucesso','Requisição Condicionada Atualizada com sucesso!');
         res.redirect('/navios');
     })
@@ -264,7 +258,6 @@ router.get('/:id', isLoggedIn, catchAsync(async(req,res,next) => {
 
    router.post('/new',catchAsync(async(req,res,next) => {
     const caminho = req.body.condi;
-    console.log(caminho);
     const Requi = `SELECT * from navios where ID = ${caminho.navioID} order by Navio`;
     con.query(Requi,function(err,result,fields){
          if(err) throw(err);
