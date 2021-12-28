@@ -88,7 +88,7 @@ function sendMail(cookie){
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 let situacao;
-console.log(mailLetter.Servico);
+
 if(mailLetter.Servico == 'DESATRACACAO' || mailLetter.Servico == 'DESATRACACAOF'){
     situacao = `<b>CALADO DE SAÍDA: </b>${mailLetter.Saida}<br>`;    
 }else{
@@ -133,7 +133,12 @@ sgMail
 function sendCondi(cookie){
     const sgMail = require('@sendgrid/mail')
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    let situacao = `<b>CALADO DE ENTRADA: </b>${mailCondi.Entrada}<br>`;
+    let situacao;
+    if(mailCondi.Servico == 'DESATRACACAO' || mailCondi.Servico == 'DESATRACACAOF'){
+        situacao = `<b>CALADO DE SAÍDA: </b>${mailCondi.Saida}<br>`;    
+    }else{
+        situacao = `<b>CALADO DE ENTRADA: </b>${mailCondi.Entrada}<br>`;
+    }
     //conteudo do e-mail
     const msg = {
       to: listEmail, // Change to your recipient
