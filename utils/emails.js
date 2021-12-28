@@ -11,12 +11,12 @@
      {
          email: 'thiagolealrj@yahoo.com.br',
      },
-    //  {
-    //      email: 'raphaelinglez@gmail.com',
-    //  },
-    //  {
-    //      email: 'imbitubapilots@gmail.com',
-    //  },
+     {
+         email: 'raphaelinglez@gmail.com',
+     },
+     {
+         email: 'imbitubapilots@gmail.com',
+     },
     //  {
     //      email: 'rduarte45@gmail.com',
     //  },
