@@ -80,7 +80,7 @@ function sendCondi(cookie){
            <b>OBS/CONTATOS:</b> ${mailCondi.Obs}`
     }
     sgMail
-      .sendMultiple(msg)
+      .send(msg)
       .then(() => {
         console.log('Email sent')
       })
