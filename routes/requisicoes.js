@@ -88,6 +88,7 @@ function sendMail(cookie){
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 let situacao;
+console.log(mailLetter.Servico);
 if(mailLetter.Servico =='DESATRACACAO' || 'DESATRACACAOF'){
     situacao = `<b>CALADO DE SAÍDA: </b>${mailLetter.Saida}<br>`;    
 }else{
