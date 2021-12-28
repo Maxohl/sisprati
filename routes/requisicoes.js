@@ -99,7 +99,7 @@ const msg = {
   from: {
       email: 'sisprati@hotmail.com'
   },
-  to: 'maxohl12@gmail.com',
+  to: 'maxohl@hotmail.com',
   cc: listEmail, 
   subject: `${mailLetter.Subject} ${mailLetter.Navio}`,
   text: 'Teste',
