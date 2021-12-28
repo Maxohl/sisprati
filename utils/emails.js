@@ -5,12 +5,12 @@
      {
          email: 'maxohl12@gmail.com',
      },
-    //  {
-    //      email: 'vtsvtsibb@gmail.com',
-    //  },
-    //  {
-    //      email: 'thiagolealrj@yahoo.com.br',
-    //  },
+     {
+         email: 'vtsvtsibb@gmail.com',
+     },
+     {
+         email: 'thiagolealrj@yahoo.com.br',
+     },
     //  {
     //      email: 'raphaelinglez@gmail.com',
     //  },
