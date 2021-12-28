@@ -53,21 +53,19 @@ function sendCondi(cookie){
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     let situacao = `<b>CALADO DE ENTRADA: </b>${mailCondi.Entrada}<br>`;
     //conteudo do e-mail
-    // Create the personalizations object that will be passed to our message object
-    let personalizations = [{
-        to: [],
-        subject
-    }];
-
-    for(let index in lista){
-        personalizations[0].to[index] = {email: lista[index]}
-    };
 
     const msg = {
        // Change to your recipient
-    //   to: `${[lista]}`,
-      personalizations,
-      cc: 'maxohl@hotmail.com',
+      to: [
+          {
+              email: 'maxohl@hotmail.com',
+           },
+           {
+               email: 'maxohl12@gmail.com',
+           },
+        ],
+  
+    //   cc: 'maxohl@hotmail.com',
       from: 'sisprati@hotmail.com', // Change to your verified sender
     //   to: [lista],
       subject: `${mailCondi.Subject} ${mailCondi.Navio}`,
