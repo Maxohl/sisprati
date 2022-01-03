@@ -1,8 +1,5 @@
  const listEmail = [
      {
-        email: 'maxohl@hotmail.com',
-     },
-     {
          email: 'vtsvtsibb@gmail.com',
      },
      {

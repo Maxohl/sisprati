@@ -39,14 +39,14 @@ const mailCondi = {
 }
 
 //Pega lista de e-mails para envio e adiciona eles para variavel lista
-function mailList(){
-    const query = 'SELECT email FROM emails';
-    con.query(query,function(err,result,fields){ 
-        for(let i = 0; i < result.length; i++){
-           lista.push(result[i].email);
-        }
-    })
-    }
+// function mailList(){
+//     const query = 'SELECT email FROM emails';
+//     con.query(query,function(err,result,fields){ 
+//         for(let i = 0; i < result.length; i++){
+//            lista.push(result[i].email);
+//         }
+//     })
+//     }
 
 //Envia e-mail de requisicao condicionada
 function sendCondi(cookie){
