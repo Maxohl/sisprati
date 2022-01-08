@@ -296,7 +296,7 @@ con.query(condicionada,function(err,result,fields){
 
 router.get('/', isLoggedIn,(req,res) => {
     allRequi(req);
-    mailList(); 
+    // mailList(); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
         if(err){

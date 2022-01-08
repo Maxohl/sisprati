@@ -155,7 +155,7 @@ function allRequi(req){
 }
 
 router.get('/', isLoggedIn,(req,res) => {
-    mailList();
+    // mailList();
     allRequi(req); 
     const navios = `SELECT * FROM navios where ID_agencia = ${req.user.ID_agencia}`;
     con.query(navios,function(err,result,fields){
