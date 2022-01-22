@@ -1,36 +1,6 @@
  const listEmail = [
      {
-         email: 'vtsvtsibb@gmail.com',
-     },
-     {
-         email: 'thiagolealrj@yahoo.com.br',
-     },
-     {
-         email: 'masterpilotservices@gmail.com',
-     },
-     {
-         email: 'imbitubapilots@gmail.com',
-     },
-     {
-         email: 'eltonvillajr@gmail.com',
-     },
-     {
-        email: 'rduarte45@gmail.com',
-    },
-    {
-        email: 'lgbazilio@gmail.com',
-    },
-    {
-        email: 'operacoes@portodeimbituba.com.br',
-    },
-    {
-        email: 'Elton.villa@hotmail.com',
-    },
-    {
-        email: 'veduardo618@gmail.com',
-    },
-    {
-        email: 'navegacaovilla@gmail.com',
-    },
+         email: 'example@domain.com',
+     }
   ]
   module.exports = listEmail;
